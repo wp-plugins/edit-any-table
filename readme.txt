@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: redeyedmonster
 Donate link: 
-Tags: edit any table, database, table, update, insert, add, delete, edit
+Tags: edit any table, database, table, update, insert, add, delete, edit, MySQL, phpMyAdmin
 Requires at least: 2.5
 Tested up to: 3.4.1
 Stable tag: trunk
@@ -12,7 +12,7 @@ A WordPress plugin/Dashboard Widget that allows you to connect to any database a
 
 == Description ==
 
-I developed this plugin for a local History Group who have a separate database which is used to display census data etc. on their WordPress site.  However there was such a lot of data, extracted from spreadsheets, that once loaded it became evident that there were a number of typos and errors which needed correcting. It wasn’t acceptable to let the users loose on phpMyAdmin so I created this plugin as a dashboard widget to allow them to connect to their database and search, edit, add and delete records.  This plugin will allow you to connect to any MySQL database (as long as your hosting allows) even the WordPress one, although I wouldn’t advise it.
+This plugin is a dashboard widget to allow you to connect to any MySQL database of your choice (as long as your hosting allows) and search, edit, add and delete records in an easy to use interface.  Ideal if you have built a site referencing another database and you want to allow other editors/administators of the site to alter, update, delete, add and correct entries.  
 
 == Installation ==
 
