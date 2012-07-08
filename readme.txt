@@ -1,0 +1,58 @@
+=== Plugin Name ===
+Contributors: redeyedmonster
+Donate link: 
+Tags: edit any table, database, table, update, insert, add, delete, edit
+Requires at least: 2.5
+Tested up to: 3.4.1
+Stable tag: trunk
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+A WordPress plugin/Dashboard Widget that allows you to connect to any database and edit the contents.
+
+== Description ==
+
+I developed this plugin for a local History Group who have a separate database which is used to display census data etc. 
+on their WordPress site.  However there was such a lot of data, extracted from spreadsheets, that once loaded it became 
+evident that there were a number of typos and errors which needed correcting. It wasn’t acceptable to let the users loose 
+on phpMyAdmin so I created this plugin as a dashboard widget to allow them to connect to their database and search, edit, 
+add and delete records.  This plugin will allow you to connect to any MySQL database (as long as your hosting allows) even 
+the WordPress one, although I wouldn’t advise it.
+
+== Installation ==
+
+To install, download the .zip file, extract the contents and place the edit-any-table folder in your 
+plugin directory (typically \\your-site\wp-content\plugins\)
+
+Once installed go to the Dashboard->Plugins page of your WordPress site and activate the plugin.
+
+Now go to the Dashboard->Settings->Edit Any Table page and enter the required details. First you’ll need to enter the host 
+(often localhost), the name of the database you wish to connect to and a valid user name and password. Under Admin Settings 
+you can choose to allow Administrators only to have access to the widget or Editors as well. Note: If neither of these boxes 
+are ticked the widget will not display in your WordPress Dashboard. Finally Display Settings allows you to select the maximum 
+number of columns to display for returned searches. Edit Any Table displays best in a single column dashboard configuration 
+and I find five columns is a comfortable fit but adjust to suit.
+
+For full deatails visit [RedEyedmonster](http://redeyedmonster.co.uk/2012/07/04/edit-any-table/)
+
+== Frequently Asked Questions ==
+
+= When I get some =
+
+I'll put the answers here
+
+== Screenshots ==
+
+1. Administration screen
+2. Search for or add a record
+3. Edit or delete a record
+
+== Changelog ==
+
+= 1.0.0 =
+* First release
+
+== Upgrade Notice ==
+
+= 1.0.0 =
+If you don't install this you won't have the plugin :)
