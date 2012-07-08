@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: redeyedmonster
 Donate link: 
-Tags: edit any table, database, table, update, insert, add, delete, edit, MySQL, phpMyAdmin
+Tags: database, table, update, insert, add, delete, edit, MySQL, phpMyAdmin, data, editor, widget, dashboard
 Requires at least: 2.5
 Tested up to: 3.4.1
 Stable tag: trunk
