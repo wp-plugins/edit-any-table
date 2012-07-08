@@ -26,7 +26,7 @@ plugin directory (typically \\your-site\wp-content\plugins\)
 
 Once installed go to the Dashboard->Plugins page of your WordPress site and activate the plugin.
 
-Now go to the Dashboard->Settings->Edit Any Table page and enter the required details. First you’ll need to enter the host 
+Now go to the Dashboard->Settings->Edit Any Table page and enter the required details. First you will need to enter the host 
 (often localhost), the name of the database you wish to connect to and a valid user name and password. Under Admin Settings 
 you can choose to allow Administrators only to have access to the widget or Editors as well. Note: If neither of these boxes 
 are ticked the widget will not display in your WordPress Dashboard. Finally Display Settings allows you to select the maximum 
