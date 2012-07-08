@@ -12,26 +12,18 @@ A WordPress plugin/Dashboard Widget that allows you to connect to any database a
 
 == Description ==
 
-I developed this plugin for a local History Group who have a separate database which is used to display census data etc. 
-on their WordPress site.  However there was such a lot of data, extracted from spreadsheets, that once loaded it became 
-evident that there were a number of typos and errors which needed correcting. It wasn’t acceptable to let the users loose 
-on phpMyAdmin so I created this plugin as a dashboard widget to allow them to connect to their database and search, edit, 
-add and delete records.  This plugin will allow you to connect to any MySQL database (as long as your hosting allows) even 
-the WordPress one, although I wouldn’t advise it.
+I developed this plugin for a local History Group who have a separate database which is used to display census data etc. on their WordPress site.  However there was such a lot of data, extracted from spreadsheets, that once loaded it became evident that there were a number of typos and errors which needed correcting. It wasn’t acceptable to let the users loose on phpMyAdmin so I created this plugin as a dashboard widget to allow them to connect to their database and search, edit, add and delete records.  This plugin will allow you to connect to any MySQL database (as long as your hosting allows) even the WordPress one, although I wouldn’t advise it.
 
 == Installation ==
 
-* To install, download the .zip file, extract the contents and place the edit-any-table folder in your 
-plugin directory (typically \\your-site\wp-content\plugins\)
+* To install, download the .zip file, extract the contents and place the edit-any-table folder in your plugin directory (typically \\your-site\wp-content\plugins\)
 
 * Once installed go to the Dashboard->Plugins page of your WordPress site and activate the plugin.
 
 * Now go to the Dashboard->Settings->Edit Any Table page and enter the required details. 
 * First you will need to enter the host (often localhost), the name of the database you wish to connect to and a valid user name and password. 
-* Under Admin Settings you can choose to allow Administrators only to have access to the widget or Editors as well. Note: If neither of these boxes 
-are ticked the widget will not display in your WordPress Dashboard. 
-* Finally Display Settings allows you to select the maximum number of columns to display for returned searches. Edit Any Table displays best in a single column dashboard configuration 
-and I find five columns is a comfortable fit but adjust to suit.
+* Under Admin Settings you can choose to allow Administrators only to have access to the widget or Editors as well. Note: If neither of these boxes are ticked the widget will not display in your WordPress Dashboard. 
+* Finally Display Settings allows you to select the maximum number of columns to display for returned searches. Edit Any Table displays best in a single column dashboard configuration and I find five columns is a comfortable fit but adjust to suit.
 
 For full deatails and user guide visit [RedEyedMonster Edit-Any-Table](http://redeyedmonster.co.uk/2012/07/04/edit-any-table/)
 
