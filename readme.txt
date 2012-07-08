@@ -21,19 +21,19 @@ the WordPress one, although I wouldn’t advise it.
 
 == Installation ==
 
-To install, download the .zip file, extract the contents and place the edit-any-table folder in your 
+* To install, download the .zip file, extract the contents and place the edit-any-table folder in your 
 plugin directory (typically \\your-site\wp-content\plugins\)
 
-Once installed go to the Dashboard->Plugins page of your WordPress site and activate the plugin.
+* Once installed go to the Dashboard->Plugins page of your WordPress site and activate the plugin.
 
-Now go to the Dashboard->Settings->Edit Any Table page and enter the required details. First you will need to enter the host 
-(often localhost), the name of the database you wish to connect to and a valid user name and password. Under Admin Settings 
-you can choose to allow Administrators only to have access to the widget or Editors as well. Note: If neither of these boxes 
-are ticked the widget will not display in your WordPress Dashboard. Finally Display Settings allows you to select the maximum 
-number of columns to display for returned searches. Edit Any Table displays best in a single column dashboard configuration 
+* Now go to the Dashboard->Settings->Edit Any Table page and enter the required details. 
+* First you will need to enter the host (often localhost), the name of the database you wish to connect to and a valid user name and password. 
+* Under Admin Settings you can choose to allow Administrators only to have access to the widget or Editors as well. Note: If neither of these boxes 
+are ticked the widget will not display in your WordPress Dashboard. 
+* Finally Display Settings allows you to select the maximum number of columns to display for returned searches. Edit Any Table displays best in a single column dashboard configuration 
 and I find five columns is a comfortable fit but adjust to suit.
 
-For full deatails visit [RedEyedmonster](http://redeyedmonster.co.uk/2012/07/04/edit-any-table/)
+For full deatails and user guide visit [RedEyedmonster](http://redeyedmonster.co.uk/2012/07/04/edit-any-table/)
 
 == Frequently Asked Questions ==
 
