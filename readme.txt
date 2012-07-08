@@ -33,7 +33,7 @@ are ticked the widget will not display in your WordPress Dashboard.
 * Finally Display Settings allows you to select the maximum number of columns to display for returned searches. Edit Any Table displays best in a single column dashboard configuration 
 and I find five columns is a comfortable fit but adjust to suit.
 
-For full deatails and user guide visit [RedEyedmonster](http://redeyedmonster.co.uk/2012/07/04/edit-any-table/)
+For full deatails and user guide visit [RedEyedMonster Edit-Any-Table](http://redeyedmonster.co.uk/2012/07/04/edit-any-table/)
 
 == Frequently Asked Questions ==
 
