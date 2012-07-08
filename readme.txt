@@ -29,9 +29,13 @@ For full deatails and user guide visit [RedEyedMonster Edit-Any-Table](http://re
 
 == Frequently Asked Questions ==
 
-= When I get some =
+= Why can't I see the widget in the dashboard? =
 
-I'll put the answers here
+Probably because you have not selected 'Editor' or 'Administrator' in the settings. Go to Settings->Edit Any Table and correct this.
+
+= There are no tables in the drop down list, why? =
+
+You have entered invalid database information. Check the settings.
 
 == Screenshots ==
 
