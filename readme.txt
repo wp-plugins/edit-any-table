@@ -2,7 +2,7 @@
 Contributors: redeyedmonster
 Donate link: 
 Tags: database, table, update, insert, add, delete, edit, MySQL, phpMyAdmin, data, editor, widget, dashboard
-Requires at least: 2.5
+Requires at least: 3.0.0
 Tested up to: 3.4.1
 Stable tag: trunk
 License: GPLv2 or later
