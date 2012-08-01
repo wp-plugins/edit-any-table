@@ -23,7 +23,8 @@ This plugin is a dashboard widget to allow you to connect to any MySQL database 
 * Now go to the Dashboard->Settings->Edit Any Table page and enter the required details. 
 * First you will need to enter the host (often localhost), the name of the database you wish to connect to and a valid user name and password. 
 * Under Admin Settings you can choose to allow Administrators only to have access to the widget or Editors as well. Note: If neither of these boxes are ticked the widget will not display in your WordPress Dashboard. 
-* Finally Display Settings allows you to select the maximum number of columns to display for returned searches. Edit Any Table displays best in a single column dashboard configuration and I find five columns is a comfortable fit but adjust to suit.
+* Display Settings allows you to select the maximum number of columns to display for returned searches. Edit Any Table displays best in a single column dashboard configuration and I find five columns is a comfortable fit but adjust to suit.
+* Also here you can set a friendly name for the database you are connecting to (less confusing for your users)
 
 For full deatails and user guide visit [RedEyedMonster Edit-Any-Table](http://redeyedmonster.co.uk/2012/07/04/edit-any-table/)
 
@@ -45,10 +46,18 @@ You have entered invalid database information. Check the settings.
 
 == Changelog ==
 
+= 1.1.0 =
+* Simplified layout
+* Settings link added to main plugin page
+* Option to set a friendly database name in dashboard widget
+
 = 1.0.0 =
 * First release
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Widget appearance and ease of use updated
 
 = 1.0.0 =
 If you don't install this you won't have the plugin :)

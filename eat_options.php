@@ -59,6 +59,13 @@ function eat_admin_init()
 	add_settings_field('eat_editor', 'Editor Access', 'display_eat_editor','eat2','eat_main');
 	add_settings_section('eat_main', 'Display Settings','eat_ds_section_text','eat3');
 	add_settings_field('eat_cols', 'Default number of search results to display at a time', 'display_eat_cols','eat3','eat_main');
+	add_settings_field('eat_friendly','Enter a friendly name to be displayed for the database (leave blank to display actual name','display_eat_friendly','eat3','eat_main');
+}
+
+function display_eat_friendly()
+{
+	$options = get_option('eat_options');
+	echo "<input id='eat_friendly' name='eat_options[eat_friendly]' size='40' type='text' value='{$options['eat_friendly']}' />"; 	
 }
 
 function display_eat_cols()

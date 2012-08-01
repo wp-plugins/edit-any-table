@@ -3,7 +3,7 @@
 Plugin Name: Edit Any Table
 Plugin URI: http://redeyedmonster.co.uk/2012/07/04/edit-any-table/
 Description: Dashboard widget which allows the editing of all tables in any database
-Version: 1.0.0
+Version: 1.1.0
 Author: Nigel Bachmann
 Author URI: http://redeyedmonster.co.uk
 License: GPL2
@@ -54,9 +54,9 @@ function EditAnyTable()
 	<input type="hidden" id="eat_cols" value="<?php echo $options['eat_cols']; ?>" />
 	<!-- get and store the plugin path so that it is accessable -->
 	<input type="hidden" id="eat_path" value="<?php echo plugin_dir_url(__FILE__); ?>" />
-	
+	<button class="button-primary" title="Open selected table" id="buttonGo">Open</button>
 	<select id="selectedTable">
-			<option value="NONE">*Choose Table to Edit*</option>
+			<option value="NONE">*Choose Table to Edit*&nbsp;&nbsp;</option>
 			
 	<?php
 	
@@ -68,7 +68,8 @@ function EditAnyTable()
 	}
 	
 	?>
-	</select><button class="button-primary" id="buttonGo">Go!</button>
+	</select>
+	on database: <strong><?php echo ($options['eat_friendly']==""?$options['eat_db']:$options['eat_friendly']) ?></strong>
 	<div id="outputDiv"></div>
 	
 	<?php
@@ -485,11 +486,11 @@ function TableDetails()
 		?>
 		<hr>
 		<div>
-			<button class="button-primary" id="buttonFind">Find records matching the info entered</button>
+			<button class="button-primary" title="Find records matching the values entered" id="buttonFind">Find</button>
 			&nbsp;
-			<button class="button-primary" id="buttonAdd">Add a new record with the info entered</button>
+			<button class="button-primary" title="Add a new record with the values entered" id="buttonAdd">Add</button>
 			&nbsp;
-			<button class="button" id="buttonReset">Reset</button>
+			<button class="button" title="Clear all the values" id="buttonReset">Reset</button>
 		</div>
 		<hr>
 		<div style="overflow: auto">
@@ -540,5 +541,14 @@ function add_dashboard_widget_eat()
 }
 add_action('wp_dashboard_setup','add_dashboard_widget_eat');
 
+// Add settings link on plugin page
+function your_plugin_settings_link($links) { 
+  $settings_link = '<a href="options-general.php?page=eat_options.php">Settings</a>'; 
+  array_unshift($links, $settings_link); 
+  return $links; 
+}
+ 
+$plugin = plugin_basename(__FILE__); 
+add_filter("plugin_action_links_$plugin", 'your_plugin_settings_link' );
 
 ?>
