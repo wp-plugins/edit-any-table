@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Edit Any Table
-Plugin URI: http://redeyedmonster.co.uk/2012/07/04/edit-any-table/
+Plugin URI: http://redeyedmonster.co.uk/edit-any-table/
 Description: Dashboard widget which allows the editing of all tables in any database
-Version: 1.1.0
+Version: 1.1.1
 Author: Nigel Bachmann
 Author URI: http://redeyedmonster.co.uk
 License: GPL2
