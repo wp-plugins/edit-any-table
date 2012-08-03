@@ -26,7 +26,7 @@ This plugin is a dashboard widget to allow you to connect to any MySQL database 
 * Display Settings allows you to select the maximum number of columns to display for returned searches. Edit Any Table displays best in a single column dashboard configuration and I find five columns is a comfortable fit but adjust to suit.
 * Also here you can set a friendly name for the database you are connecting to (less confusing for your users)
 
-For full deatails and user guide visit [RedEyedMonster Edit-Any-Table](http://redeyedmonster.co.uk/2012/07/04/edit-any-table/)
+For full deatails and user guide visit [RedEyedMonster Edit-Any-Table](http://redeyedmonster.co.uk/edit-any-table/)
 
 == Frequently Asked Questions ==
 
