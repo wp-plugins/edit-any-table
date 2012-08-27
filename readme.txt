@@ -46,6 +46,9 @@ You have entered invalid database information. Check the settings.
 
 == Changelog ==
 
+= 1.1.2 =
+* Instructions link added to widget
+
 = 1.1.1 =
 * Plugin homepage address changed
 
