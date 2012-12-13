@@ -47,7 +47,7 @@ You have entered invalid database information. Check the settings.
 == Changelog ==
 
 = 1.1.3 =
-* Bug introduced by WordPress 3.5 on the prepare statement (now always requires 2 parameters) FIXED
+* Bug introduced by WordPress 3.5 (prepare statement now always requires 2 parameters) FIXED
 
 = 1.1.2 =
 * Instructions link added to widget
