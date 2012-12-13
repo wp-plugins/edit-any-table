@@ -3,7 +3,7 @@
 Plugin Name: Edit Any Table
 Plugin URI: http://redeyedmonster.co.uk/edit-any-table/
 Description: Dashboard widget which allows the editing of all tables in any database
-Version: 1.1.2
+Version: 1.1.3
 Author: Nigel Bachmann
 Author URI: http://redeyedmonster.co.uk
 License: GPL2
@@ -46,7 +46,7 @@ function EditAnyTable()
 			return;
 	}
 		
-	$result = $eat_db->get_col($eat_db->prepare("show tables"));
+	$result = $eat_db->get_col($eat_db->prepare("show tables",null));
 	
 	?>
 	
@@ -175,7 +175,7 @@ function DeleteSelected()
 		$eat_db = new wpdb($options['eat_user'],$options['eat_pwd'],$options['eat_db'],$options['eat_host']);
 		
 		//Get a single record for column info
-		$sql = $eat_db->prepare("select * from ".$table2Edit." LIMIT 1");
+		$sql = $eat_db->prepare("select * from ".$table2Edit." LIMIT 1",null);
 		//echo $sql."<br />";
 		$records = $eat_db->get_results($sql,'ARRAY_N');
 		
@@ -322,7 +322,7 @@ function ReturnRecords()
 	$eat_db = new wpdb($options['eat_user'],$options['eat_pwd'],$options['eat_db'],$options['eat_host']);
 	
 	//Get a single record for column info
-	$sql = $eat_db->prepare("select * from ".$table2Edit." LIMIT 1");
+	$sql = $eat_db->prepare("select * from ".$table2Edit." LIMIT 1",null);
 	//echo $sql."<br />";
 	$records = $eat_db->get_results($sql,'ARRAY_N');
 	
