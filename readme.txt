@@ -3,7 +3,7 @@ Contributors: redeyedmonster
 Donate link: 
 Tags: database, table, update, insert, add, delete, edit, MySQL, phpMyAdmin, data, editor, widget, dashboard
 Requires at least: 3.0.0
-Tested up to: 3.5
+Tested up to: 3.5.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -45,6 +45,9 @@ You have entered invalid database information. Check the settings.
 3. Edit or delete a record
 
 == Changelog ==
+
+= 1.2.3 =
+* Fuzzy search added.  You can now select to search string fields by part word or phrase.
 
 = 1.1.3 =
 * Bug introduced by WordPress 3.5 (prepare statement now always requires 2 parameters) FIXED
