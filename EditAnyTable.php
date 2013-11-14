@@ -3,7 +3,7 @@
 Plugin Name: Edit Any Table
 Plugin URI: http://redeyedmonster.co.uk/edit-any-table/
 Description: Dashboard widget which allows the editing of all tables in any database
-Version: 1.2.3
+Version: 1.3.0
 Author: Nigel Bachmann
 Author URI: http://redeyedmonster.co.uk
 License: GPL2
@@ -382,7 +382,14 @@ function ReturnRecords()
 	}
 		
 	//Get the records
-	$sql = $eat_db->prepare("select * from ".$table2Edit." where ".$where." LIMIT ".$offSet.", ".$eat_cols."",$vals);
+	if(count($vals)>0)	
+	{
+		$sql = $eat_db->prepare("select * from ".$table2Edit." where ".$where." LIMIT ".$offSet.", ".$eat_cols."",$vals);
+	}	
+	else	
+	{			
+		$sql = $eat_db->prepare("select * from ".$table2Edit." LIMIT ".$offSet.", ".$eat_cols."",null);
+	}
 	$records = $eat_db->get_results($sql,'ARRAY_N');
 	
 	//lets work out how many columns we're going to display (max from options)
@@ -498,8 +505,8 @@ function TableDetails()
 	
 	
 	//build the table
-	if($eat_db->num_rows > 0)
-	{
+	//if($eat_db->num_rows > 0) Removed for 1.3.0
+	//{
 		?>
 		<hr>
 		<div>
@@ -544,7 +551,7 @@ function TableDetails()
 			</table>
 		</div>
 		<?php
-	}
+	//}
 
 	die();
 }
