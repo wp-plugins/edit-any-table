@@ -3,7 +3,7 @@
 Plugin Name: Edit Any Table
 Plugin URI: http://redeyedmonster.co.uk/edit-any-table/
 Description: Dashboard widget which allows the editing of all tables in any database
-Version: 1.3.0
+Version: 1.3.1
 Author: Nigel Bachmann
 Author URI: http://redeyedmonster.co.uk
 License: GPL2

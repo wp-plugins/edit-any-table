@@ -3,7 +3,7 @@ Contributors: redeyedmonster
 Donate link: 
 Tags: database, table, update, insert, add, delete, edit, MySQL, phpMyAdmin, data, editor, widget, dashboard
 Requires at least: 3.0.0
-Tested up to: 3.5.1
+Tested up to: 3.7.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -44,7 +44,7 @@ You have entered invalid database information. Check the settings.
 2. Search for or add a record
 3. Edit or delete a record
 
-== Changelog ==
+== Changelog === 1.3.1 =* Fixed compatibility setting
 
 = 1.3.0 =
 * Now shows columns for empty tables and allows the user to add new records.* Returns all records from a table if no search criteria is entered.
