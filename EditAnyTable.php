@@ -3,8 +3,10 @@
 Plugin Name: Edit Any Table
 Plugin URI: http://redeyedmonster.co.uk/edit-any-table/
 Description: Dashboard widget which allows the editing of all tables in any database
-Version: 1.3.1
+Version: 2.0.0
 Author: Nigel Bachmann
+Text Domain: EditAnyTable
+Domain Path: /languages
 Author URI: http://redeyedmonster.co.uk
 License: GPL2
 
@@ -25,6 +27,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 
+add_action('plugins_loaded','EditAnyTable_init');
+function EditAnyTable_init()
+{
+    //$plugin_dir = plugin_dir_url(__FILE__);//$plugin_dir.'languages'
+    load_plugin_textdomain( 'EditAnyTable', false, basename(dirname(__FILE__)).'/languages/');
+}
+
+
 //load the options page
 require('eat_options.php');
 
@@ -36,44 +46,54 @@ function EditAnyTable()
 	require('eat_scripts.js');
 	wp_enqueue_script('jquery-ui-dialog');
 	wp_enqueue_style("wp-jquery-ui-dialog");
-	
+
 	$options = get_option('eat_options');
 	$eat_db = new wpdb($options['eat_user'],$options['eat_pwd'],$options['eat_db'],$options['eat_host']);
-	
+
 	if(!$eat_db->dbh)
 	{
-			echo "<strong>Unable to connect to database, check your settings</strong>";
+			echo '<strong>'.__('Unable to connect to database, check your settings','EditAnyTable').'</strong>';
 			return;
 	}
 		
-	$result = $eat_db->get_col($eat_db->prepare("show tables",null));
+	//$result = $eat_db->get_col($eat_db->prepare("show tables",null));
 	
 	?>
 	
 	<!-- Store the number of columns to be displayed which can be passed across to the next page -->
 	<input type="hidden" id="eat_cols" value="<?php echo $options['eat_cols']; ?>" />
-	<!-- get and store the plugin path so that it is accessable -->
+	<!-- get and store the plugin path so that it is accessible -->
 	<input type="hidden" id="eat_path" value="<?php echo plugin_dir_url(__FILE__); ?>" />
 	
 	<!-- Show a link to instructions -->
-	<a href="http://redeyedmonster.co.uk/edit-any-table#using">Instructions</a><br /><br />
+	<a href="http://redeyedmonster.co.uk/edit-any-table#using"><?php _e('Instructions','EditAnyTable');?></a><br /><br />
+
 	
-	<button class="button-primary" title="Open selected table" id="buttonGo">Open</button>
-	<select id="selectedTable">
-			<option value="NONE">*Choose Table to Edit*&nbsp;&nbsp;</option>
+	<button class="button-primary" title="<?php _e('Open selected table','EditAnyTable');?>" id="buttonGo"><?php _e('Open','EditAnyTable'); ?></button>
+    <select id="selectedTable">
+			<option value="NONE">*<?php _e('Choose Table to Edit','EditAnyTable') ?>*&nbsp;&nbsp;</option>
 			
 	<?php
-	
-	foreach($result as $table)
-	{
-		?>
-		<option value="<?php echo $table; ?>"><?php echo $table; ?></option>
-		<?php
-	}
+
+
+    foreach($options as $option)
+    {
+
+        if( strpos($option,'eat_table_') !== false)
+        {
+            //only show tables selected in the settings
+            $tableName = substr($option,10);
+
+            ?>
+            <option value="<?php echo $tableName; ?>"><?php echo $tableName; ?></option>
+            <?php
+        }
+
+    }
 	
 	?>
 	</select>
-	on database: <strong><?php echo ($options['eat_friendly']==""?$options['eat_db']:$options['eat_friendly']) ?></strong>
+	<?php _e('on database','EditAnyTable');?>: <strong><?php echo ($options['eat_friendly']==""?$options['eat_db']:$options['eat_friendly']) ?></strong>
 	<div id="outputDiv"></div>
 	
 	<?php
@@ -101,7 +121,7 @@ function UpdateSelected()
 	
 	if(count($keysArray)==0)
 	{
-			echo "<br />Cannot update this record because there are no primary keys in the table";
+			echo '<br />'.__('Cannot update this record because there are no primary keys in the table','EditAnyTable');
 	}
 	else
 	{
@@ -134,11 +154,11 @@ function UpdateSelected()
 		
 		if($eat_db->update($table2Edit,$setArray,$whereArray))
 		{
-			echo "<br /><strong>Record Updated</strong>";
+			echo '<br /><strong>'.__('Record Updated','EditAnyTable').'</strong>';
 		}
 		else
 		{
-			echo "<br /><strong>Unable to update record</strong><br />";
+			echo '<br /><strong>'.__('Unable to update record','EditAnyTable').'</strong><br />';
 			$eat_db->show_errors();
 			$eat_db->print_error();
 			$eat_db->hide_errors();
@@ -166,7 +186,7 @@ function DeleteSelected()
 		
 	if(count($keysArray)==0)
 	{
-			echo "<br />Cannot delete this record because there are no primary keys in the table";
+			echo '<br />'.__('Cannot delete this record because there are no primary keys in the table','EditAnyTable');
 	}
 	else
 	{
@@ -226,11 +246,11 @@ function DeleteSelected()
 		$result = $eat_db->query($sql);
 		if($result)
 		{
-			echo "<br /><strong>Record Deleted</strong>";
+			echo '<br /><strong>'.__('Record Deleted','EditAnyTable').'</strong>';
 		}
 		else
 		{
-			echo "<br /><strong>Unable to delete record</strong><br />";
+			echo '<br /><strong>'.__('Unable to delete record','EditAnyTable').'</strong><br />';
 			$eat_db->show_errors();
 			$eat_db->print_error();
 			$eat_db->hide_errors();
@@ -250,6 +270,7 @@ function CreateRecord()
 	$keys = $_POST['keys'];
 	$values = $_POST['values'];
 	$eat_cols = $_POST['eat_cols'];
+    $offSet = "0";
 
 	?>
 	<!-- Store the values we need but don't want to show in hidden fields which can be passed across to the next page -->
@@ -281,11 +302,11 @@ function CreateRecord()
 	
 	if($eat_db->insert($table2Edit,$insertArray))
 	{
-		echo "<br />New Record Created";
+		echo '<br />'.__('New Record Created','EditAnyTable');
 	}
 	else
 	{
-		echo "<br />Unable to create new record<br />";
+		echo '<br />'.__('Unable to create new record','EditAnyTable').'<br />';
 		$eat_db->show_errors();
 		$eat_db->print_error();
 		$eat_db->hide_errors();	
@@ -400,13 +421,13 @@ function ReturnRecords()
 	if($offSet > 0)
 	{
 	?>
-	<button class="button" id="buttonPrev">&lt;&lt; Previous <?php echo $eat_cols ?></button>&nbsp;
+	<button class="button" id="buttonPrev">&lt;&lt; <?php echo __('Previous','EditAnyTable').' '.$eat_cols ?></button>&nbsp;
 	<?php
 	}
 	if($numCols == (int)$eat_cols)
 	{
 	?>
-	<button class="button" id="buttonNext">Next <?php echo $eat_cols ?> &gt;&gt;</button>
+	<button class="button" id="buttonNext"><?php echo __('Next','EditAnyTable').' '.$eat_cols ?> &gt;&gt;</button>
 	<?php
 	}
 	if($numCols > 0)
@@ -416,7 +437,7 @@ function ReturnRecords()
 		<div style="overflow: auto">
 			<table id="tableCols">
 				<tr>
-					<td><strong>Column</strong></td>
+					<td><strong><?php _e('Column','EditAnyTable'); ?></strong></td>
 			<?php
 			for($i = 0; $i < $numCols; $i++)
 			{
@@ -450,7 +471,7 @@ function ReturnRecords()
 					else
 					{
 						?>
-						<td id="<?php echo $cols[$i]; ?>"><input type="text" value="<?php echo sanitize_text_field($row[$i]); ?>" /></td>
+						<td id="<?php echo $cols[$i]; ?>"><input type="text"  value="<?php echo sanitize_text_field($row[$i]); ?>" /></td>
 						<?php
 					}
 				}
@@ -464,9 +485,32 @@ function ReturnRecords()
 				<?php
 				for($i = 0; $i < $numCols; $i++)
 				{
-					?>
-					<td><button class="button-primary" id="save<?php echo $i+1; ?>">Save</button>&nbsp;<button class="button-primary" id="delete<?php echo $i+1; ?>">Delete</button></td>
-					<?php
+                    if(in_array(1,$primary)) //Do not show save or delete buttons if there is no primary key
+                    {
+
+                ?>
+                        <td>
+                            <?php
+                            // Check that editor has rights to add
+                            if(current_user_can('administrator') || (current_user_can('editor') && $options['eat_editorPrivEdit']=='yes'))
+                            {
+                               ?>
+                                <button class="button-primary" id="save<?php echo $i+1; ?>"><?php _e('Save','EditAnyTable'); ?></button>&nbsp;
+                                <?php
+                            }
+
+                            // Check that editor has rights to delete
+                            if(current_user_can('administrator') || (current_user_can('editor') && $options['eat_editorPrivDelete']=='yes'))
+                            {
+                                ?>
+                                <button class="button-primary" id="delete<?php echo $i+1; ?>"><?php _e('Delete','EditAnyTable'); ?></button>
+                                <?php
+                            }
+
+                            ?>
+                        </td>
+                        <?php
+                    }
 				}
 				?>
 				</tr>
@@ -477,7 +521,7 @@ function ReturnRecords()
 	}
 	else
 	{
-		echo "No Results Found";
+		_e('No Results Found','EditAnyTable');
 	}
 	
 	die();
@@ -487,6 +531,9 @@ function ReturnRecords()
 add_action('wp_ajax_GetTable','TableDetails');
 function TableDetails()
 {
+    //get options
+    $options = get_option('eat_options');
+
 	//Get required values
 	$table2Edit = $_POST['table2Edit'];
 	$eat_cols = $_POST['eat_cols'];
@@ -510,20 +557,28 @@ function TableDetails()
 		?>
 		<hr>
 		<div>
-			<button class="button-primary" title="Find records matching the values entered" id="buttonFind">Find</button>
+			<button class="button-primary" title="Find records matching the values entered" id="buttonFind"><?php _e('Find','EditAnyTable'); ?></button>
 			&nbsp;
-			<input type="checkbox" id="fuzzy" />&nbsp;Fuzzy
+			<input type="checkbox" id="fuzzy" />&nbsp;<?php _e('Fuzzy','EditAnyTable'); ?>
+            <?php
+            // Check that editor has rights to add
+            if(current_user_can('administrator') || (current_user_can('editor') && $options['eat_editorPrivAdd']=='yes'))
+            {
+            ?>
 			&nbsp;
-			<button class="button-primary" title="Add a new record with the values entered" id="buttonAdd">Add</button>
+			<button class="button-primary" title="<?php _e('Add a new record with the values entered','EditAnyTable');?>" id="buttonAdd"><?php _e('Add','EditAnyTable'); ?></button>
+            <?php
+            }
+            ?>
 			&nbsp;
-			<button class="button" title="Clear all the values" id="buttonReset">Reset</button>
+			<button class="button" title="<?php _e('Clear all the values','EditAnyTable');?>" id="buttonReset"><?php _e('Reset','EditAnyTable');?></button>
 		</div>
 		<hr>
 		<div style="overflow: auto">
 			<table id="tableCols">
 				<tr>
-					<td><strong>Column</strong></td>
-					<td><strong>Value</strong></td>
+					<td><strong><?php _e('Column','EditAnyTable');?></strong></td>
+					<td><strong><?php _e('Value','EditAnyTable');?></strong></td>
 				</tr>
 			<?php
 				for($i=0;$i<count($cols);$i++)
@@ -560,12 +615,23 @@ function TableDetails()
 function add_dashboard_widget_eat()
 {
 	$options = get_option('eat_options');
-	if((current_user_can('administrator') && $options['eat_admin']=='yes')||((current_user_can('administrator') || current_user_can('editor')) && $options['eat_editor']=='yes'))
+	if(((current_user_can('administrator') && $options['eat_admin']=='yes')||((current_user_can('administrator') || current_user_can('editor')) && $options['eat_editor']=='yes')) && $options['eat_display']=='widget')
 	{
 		wp_add_dashboard_widget('eat', 'Edit Any Table', 'EditAnyTable');
 	}
 }
 add_action('wp_dashboard_setup','add_dashboard_widget_eat');
+
+//Create separate page for plugin
+add_action('admin_menu', 'edit_any_table_menu');
+
+function edit_any_table_menu() {
+    $options = get_option('eat_options');
+    if(((current_user_can('administrator') && $options['eat_admin']=='yes')||((current_user_can('administrator') || current_user_can('editor')) && $options['eat_editor']=='yes')) && $options['eat_display']=='page')
+    {
+    add_dashboard_page('Edit Any Table', 'Edit Any Table', 'read', 'edit_any_table', 'EditAnyTable');
+    }
+}
 
 // Add settings link on plugin page
 function your_plugin_settings_link($links) { 
