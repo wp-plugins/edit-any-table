@@ -3,7 +3,7 @@
 Plugin Name: Edit Any Table
 Plugin URI: http://redeyedmonster.co.uk/edit-any-table/
 Description: Dashboard widget which allows the editing of all tables in any database
-Version: 2.0.0
+Version: 2.0.1
 Author: Nigel Bachmann
 Text Domain: EditAnyTable
 Domain Path: /languages
@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 add_action('plugins_loaded','EditAnyTable_init');
 function EditAnyTable_init()
 {
-    //$plugin_dir = plugin_dir_url(__FILE__);//$plugin_dir.'languages'
     load_plugin_textdomain( 'EditAnyTable', false, basename(dirname(__FILE__)).'/languages/');
 }
 
@@ -56,8 +55,6 @@ function EditAnyTable()
 			return;
 	}
 		
-	//$result = $eat_db->get_col($eat_db->prepare("show tables",null));
-	
 	?>
 	
 	<!-- Store the number of columns to be displayed which can be passed across to the next page -->
@@ -194,30 +191,29 @@ function DeleteSelected()
 		$options = get_option('eat_options');
 		$eat_db = new wpdb($options['eat_user'],$options['eat_pwd'],$options['eat_db'],$options['eat_host']);
 		
-		//Get a single record for column info
-		$sql = $eat_db->prepare("select * from ".$table2Edit." LIMIT 1",null);
-		//echo $sql."<br />";
-		$records = $eat_db->get_results($sql,'ARRAY_N');
-		
-		//get column information
-		$cols = $eat_db->get_col_info('name',-1);
-		$numeric = $eat_db->get_col_info('numeric',-1);
-		
+		$cols = $eat_db->get_results("show columns from ".$table2Edit);
+
 		//build where
 		$where = "";
 		$vals = array();
 		for($i = 0;$i < count($keysArray); $i++)
 		{
-		
-			//need to find out if the value is for a numeric field or not
 			$isNumeric = 0;
-			for($in = 0; $in < count($cols); $in++)
-			{
-				if($cols[$in] == $keysArray[$i])
-				{
-					$isNumeric = $numeric[$in] == 1;
-				}
-			}
+            foreach($cols as $col)
+            {
+                if($col->Field == $keysArray[$i])
+                {
+                    $isNumeric =
+                        strpos($col->Type,"int") !== false ||
+                        strpos($col->Type,"decimal") !== false ||
+                        strpos($col->Type,"float") !== false ||
+                        strpos($col->Type,"double") !== false ||
+                        strpos($col->Type,"real") !== false ||
+                        strpos($col->Type,"bit") !== false ||
+                        strpos($col->Type,"boolean") !== false ||
+                        strpos($col->Type,"serial") !== false ;
+                }
+            }
 		
 			if($keysArray[$i] != "")
 			{
@@ -238,11 +234,9 @@ function DeleteSelected()
 				
 			}
 		}
-		//echo $where;
-		
+
 		//prepare the delete statement
 		$sql = $eat_db->prepare("DELETE from ".$table2Edit." where ".$where, $vals);
-		//echo $sql;
 		$result = $eat_db->query($sql);
 		if($result)
 		{
@@ -341,20 +335,13 @@ function ReturnRecords()
 	// get the users data
 	$keysArray = explode("~", $keys);
 	$valsArray = explode("~", $values);
+
 	//Connect to the database
 	$options = get_option('eat_options');
 	$eat_db = new wpdb($options['eat_user'],$options['eat_pwd'],$options['eat_db'],$options['eat_host']);
 	
-	//Get a single record for column info
-	$sql = $eat_db->prepare("select * from ".$table2Edit." LIMIT 1",null);
-	//echo $sql."<br />";
-	$records = $eat_db->get_results($sql,'ARRAY_N');
-	
-	//get column information
-	$cols = $eat_db->get_col_info('name',-1);
-	$types = $eat_db->get_col_info('type',-1);
-	$primary = $eat_db->get_col_info('primary_key',-1);
-	$numeric = $eat_db->get_col_info('numeric',-1);
+	//Get column information
+    $cols = $eat_db->get_results("show columns from ".$table2Edit);
 		
 	//build where
 	$where = "";
@@ -364,11 +351,19 @@ function ReturnRecords()
 	
 		//need to find out if the value is for a numeric field or not
 		$isNumeric = 0;
-		for($in = 0; $in < count($cols); $in++)
+		foreach($cols as $col)
 		{
-			if($cols[$in] == $keysArray[$i])
+			if($col->Field == $keysArray[$i])
 			{
-				$isNumeric = $numeric[$in] == 1;
+				$isNumeric =
+                    strpos($col->Type,"int") !== false ||
+                    strpos($col->Type,"decimal") !== false ||
+                    strpos($col->Type,"float") !== false ||
+                    strpos($col->Type,"double") !== false ||
+                    strpos($col->Type,"real") !== false ||
+                    strpos($col->Type,"bit") !== false ||
+                    strpos($col->Type,"boolean") !== false ||
+                    strpos($col->Type,"serial") !== false ;
 			}
 		}
 	
@@ -411,7 +406,8 @@ function ReturnRecords()
 	{			
 		$sql = $eat_db->prepare("select * from ".$table2Edit." LIMIT ".$offSet.", ".$eat_cols."",null);
 	}
-	$records = $eat_db->get_results($sql,'ARRAY_N');
+
+	$records = $eat_db->get_results($sql,'ARRAY_A');
 	
 	//lets work out how many columns we're going to display (max from options)
 	$numCols = $eat_db->num_rows;
@@ -432,7 +428,7 @@ function ReturnRecords()
 	}
 	if($numCols > 0)
 	{
-			
+		$primaryKeyExists = false;
 		?>
 		<div style="overflow: auto">
 			<table id="tableCols">
@@ -452,26 +448,27 @@ function ReturnRecords()
 				</tr>
 				<?php
 			//need to write the results vertically
-			for($i = 0; $i < count($cols); $i++)
+			foreach($cols as $col)
 			{
 				?>
 				<tr>
-					<td><?php echo $cols[$i]; ?></td>
+					<td><?php echo $col->Field; ?></td>
 				<?php
 				
 				for($in = 0; $in < $numCols; $in++)
 				{
 					$row = $records[$in];
-					if($primary[$i] == 1)
+					if($col->Key == "PRI")
 					{
+                        $primaryKeyExists=true;
 						?>
-						<td style="background-color:white" id="PRIMARY:<?php echo $cols[$i]; ?>"><?php echo $row[$i]; ?></td>
+						<td style="background-color:white" id="PRIMARY:<?php echo $col->Field; ?>"><?php echo $row[$col->Field]; ?></td>
 						<?php
 					}
 					else
 					{
 						?>
-						<td id="<?php echo $cols[$i]; ?>"><input type="text"  value="<?php echo sanitize_text_field($row[$i]); ?>" /></td>
+						<td id="<?php echo $col->Field; ?>"><input type="text"  value="<?php echo sanitize_text_field($row[$col->Field]); ?>" /></td>
 						<?php
 					}
 				}
@@ -485,7 +482,7 @@ function ReturnRecords()
 				<?php
 				for($i = 0; $i < $numCols; $i++)
 				{
-                    if(in_array(1,$primary)) //Do not show save or delete buttons if there is no primary key
+                    if($primaryKeyExists) //Do not show save or delete buttons if there is no primary key
                     {
 
                 ?>
@@ -531,10 +528,7 @@ function ReturnRecords()
 add_action('wp_ajax_GetTable','TableDetails');
 function TableDetails()
 {
-    //get options
-    $options = get_option('eat_options');
-
-	//Get required values
+    //Get required values
 	$table2Edit = $_POST['table2Edit'];
 	$eat_cols = $_POST['eat_cols'];
 	
@@ -542,71 +536,63 @@ function TableDetails()
 	$options = get_option('eat_options');
 	$eat_db = new wpdb($options['eat_user'],$options['eat_pwd'],$options['eat_db'],$options['eat_host']);
 		
-	//get a sample row
-	$result = $eat_db->get_results("select * from ".$table2Edit." LIMIT 0, 1");
-	
-	//get column information
-	$cols = $eat_db->get_col_info('name',-1);
-	$types = $eat_db->get_col_info('type',-1);
-	$primary = $eat_db->get_col_info('primary_key',-1);
+	// Get column info
+    $cols = $eat_db->get_results("show columns from ".$table2Edit)
 	
 	
-	//build the table
-	//if($eat_db->num_rows > 0) Removed for 1.3.0
-	//{
-		?>
-		<hr>
-		<div>
-			<button class="button-primary" title="Find records matching the values entered" id="buttonFind"><?php _e('Find','EditAnyTable'); ?></button>
-			&nbsp;
-			<input type="checkbox" id="fuzzy" />&nbsp;<?php _e('Fuzzy','EditAnyTable'); ?>
-            <?php
-            // Check that editor has rights to add
-            if(current_user_can('administrator') || (current_user_can('editor') && $options['eat_editorPrivAdd']=='yes'))
+	?>
+    <hr>
+    <div>
+        <button class="button-primary" title="Find records matching the values entered" id="buttonFind"><?php _e('Find','EditAnyTable'); ?></button>
+        &nbsp;
+        <input type="checkbox" id="fuzzy" />&nbsp;<?php _e('Fuzzy','EditAnyTable'); ?>
+        <?php
+        // Check that editor has rights to add
+        if(current_user_can('administrator') || (current_user_can('editor') && $options['eat_editorPrivAdd']=='yes'))
+        {
+        ?>
+        &nbsp;
+        <button class="button-primary" title="<?php _e('Add a new record with the values entered','EditAnyTable');?>" id="buttonAdd"><?php _e('Add','EditAnyTable'); ?></button>
+        <?php
+        }
+        ?>
+        &nbsp;
+        <button class="button" title="<?php _e('Clear all the values','EditAnyTable');?>" id="buttonReset"><?php _e('Reset','EditAnyTable');?></button>
+    </div>
+    <hr>
+    <div style="overflow: auto">
+        <table id="tableCols">
+            <tr>
+                <td><strong><?php _e('Column','EditAnyTable');?></strong></td>
+                <td><strong><?php _e('Value','EditAnyTable');?></strong></td>
+            </tr>
+        <?php
+            foreach($cols as $col)
             {
             ?>
-			&nbsp;
-			<button class="button-primary" title="<?php _e('Add a new record with the values entered','EditAnyTable');?>" id="buttonAdd"><?php _e('Add','EditAnyTable'); ?></button>
+                <tr>
+                    <td>
+                        <?php
+                            echo $col->Field." (".$col->Type.")";
+                            if($col->Key=="PRI")
+                            {
+                                echo " [PRI]";
+                            }
+                        ?>
+
+                    </td>
+                    <td>
+                        <input type="text" id="<?php echo sanitize_text_field($col->Field); ?>" />
+                    </td>
+
+                </tr>
             <?php
             }
             ?>
-			&nbsp;
-			<button class="button" title="<?php _e('Clear all the values','EditAnyTable');?>" id="buttonReset"><?php _e('Reset','EditAnyTable');?></button>
-		</div>
-		<hr>
-		<div style="overflow: auto">
-			<table id="tableCols">
-				<tr>
-					<td><strong><?php _e('Column','EditAnyTable');?></strong></td>
-					<td><strong><?php _e('Value','EditAnyTable');?></strong></td>
-				</tr>
-			<?php
-				for($i=0;$i<count($cols);$i++)
-				{
-				?>
-					<tr>
-						<td>
-							<?php 
-								echo $cols[$i]." (".$types[$i].")"; 
-								if($primary[$i]==1)
-								{
-									echo " [PRIMARY]";
-								}
-							?>
-							
-						</td>
-						<td>
-							<input type="text" id="<?php echo sanitize_text_field($cols[$i]); ?>" />
-						</td>
-						
-					</tr>
-				<?php
-				}
-				?>
-			</table>
-		</div>
-		<?php
-	//}
+        </table>
+    </div>
+    <?php
+
 
 	die();
 }
