@@ -201,8 +201,7 @@ function eat_ad_section_text()
 function eat_ds_section_text()
 {
     ?>
-    <p><?php _e('Edit any Table displays best in a one column layout. If you are using more than one column you may want to change
-        how some elements are displayed','EditAnyTable');?></p>
+    <p><?php _e('Edit any Table displays best in a one column layout. If you are using more than one column you may want to change how some elements are displayed','EditAnyTable');?></p>
 <?php
 }
 
