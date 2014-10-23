@@ -18,9 +18,11 @@ function eat_options_page()
     <form action="options.php" method="post">
         <?php
         settings_fields('eat_options');
+        do_settings_sections('eat0');
         do_settings_sections('eat1');
         do_settings_sections('eat2');
         do_settings_sections('eat3');
+
 
         $options = get_option('eat_options');
         //test connection
@@ -57,6 +59,8 @@ add_action('admin_init', 'eat_admin_init');
 function eat_admin_init()
 {
     register_setting('eat_options', 'eat_options', 'eat_options_validate');
+    add_settings_section('eat_main', __('Debug Mode','EditAnyTable'),'eat_de_section_text','eat0');
+    add_settings_field('eat_debug',__('Debug','EditAnyTable'),'display_eat_debug','eat0','eat_main');
     add_settings_section('eat_main', __('Database Settings','EditAnyTable'), 'eat_db_section_text', 'eat1');
     add_settings_field('eat_host', __('Host','EditAnyTable'), 'display_eat_host', 'eat1', 'eat_main');
     add_settings_field('eat_db', __('Database','EditAnyTable'), 'display_eat_db', 'eat1', 'eat_main');
@@ -74,6 +78,15 @@ function eat_admin_init()
     add_settings_field('eat_display', __('Display Edit Any Table as a Dashboard Widget or in its own Admin Page','EditAnyTable'), 'display_eat_display', 'eat3', 'eat_main');
     add_settings_section('eat_main',__('Tables','EditAnyTable'),'eat_tb_section_text','eat4');
     add_settings_field('eat_tables',__('Select the tables to display in the Dashboard','EditAnyTable'),'display_eat_tables','eat4','eat_main');
+}
+
+function display_eat_debug()
+{
+    if ( get_option( 'eat_debug' ) === false ) // Nothing yet saved
+        update_option( 'eat_debug', 'OFF' );
+    $options = get_option('eat_options');
+    echo "<input id='eat_debug' name='eat_options[eat_debug]'  type='radio' value='ON' " . ($options['eat_debug'] == 'ON' ? 'checked' : '') . "/>ON
+		  <input id='eat_debug' name='eat_options[eat_debug]'  type='radio' value='OFF' " . ($options['eat_debug'] == 'OFF' ? 'checked' : '') . "/>OFF";
 }
 
 function display_eat_tables()
@@ -108,6 +121,8 @@ function display_eat_friendly()
 
 function display_eat_cols()
 {
+    if ( get_option( 'eat_cols' ) === false ) // Nothing yet saved
+        update_option( 'eat_cols', '5' );
     $options = get_option('eat_options');
     echo "<input id='eat_cols' name='eat_options[eat_cols]'  type='radio' value='1' " . ($options['eat_cols'] == '1' ? 'checked' : '') . "/>1
 		  <input id='eat_cols' name='eat_options[eat_cols]'  type='radio' value='2' " . ($options['eat_cols'] == '2' ? 'checked' : '') . "/>2
@@ -210,6 +225,13 @@ function eat_tb_section_text()
     ?>
     <p><?php _e('Once you have saved your database settings correctly you should see a list of tables to select for display','EditAnyTable');?></p>
     <?php
+}
+
+function eat_de_section_text()
+{
+    ?>
+    <p><?php _e('Switch on Debug Mode to view the SQL statements sent to your database','EditAnyTable');?></p>
+<?php
 }
 
 ?>
