@@ -3,7 +3,7 @@
 Plugin Name: Edit Any Table
 Plugin URI: http://redeyedmonster.co.uk/edit-any-table/
 Description: Dashboard widget which allows the editing of all tables in any database
-Version: 2.0.1
+Version: 2.1.0
 Author: Nigel Bachmann
 Text Domain: EditAnyTable
 Domain Path: /languages
@@ -155,12 +155,14 @@ function UpdateSelected()
 		}
 		else
 		{
-			echo '<br /><strong>'.__('Unable to update record','EditAnyTable').'</strong><br />';
-			$eat_db->show_errors();
-			$eat_db->print_error();
-			$eat_db->hide_errors();
+			echo '<br /><strong>'.__('Unable to update record','EditAnyTable').'</strong><br />'.__('This is usually because nothing has changed or the record no longer exists.','EditAnyTable');
+
 		}
-		
+        if(current_user_can('administrator')  && $options['eat_debug']=='ON')
+        {
+            echo '<br /><strong>DEBUG MODE ON</strong><br />'.$eat_db->last_query;
+        }
+
 	}
 	
 	die();
@@ -249,6 +251,10 @@ function DeleteSelected()
 			$eat_db->print_error();
 			$eat_db->hide_errors();
 		}
+        if(current_user_can('administrator')  && $options['eat_debug']=='ON')
+        {
+            echo '<br /><strong>DEBUG MODE ON</strong><br />'.$eat_db->last_query;
+        }
 		
 	}
 	
@@ -305,6 +311,10 @@ function CreateRecord()
 		$eat_db->print_error();
 		$eat_db->hide_errors();	
 	}
+    if(current_user_can('administrator')  && $options['eat_debug']=='ON')
+    {
+        echo '<br /><strong>DEBUG MODE ON</strong><br />'.$eat_db->last_query;
+    }
 	
 	die();
 }
@@ -341,7 +351,7 @@ function ReturnRecords()
 	$eat_db = new wpdb($options['eat_user'],$options['eat_pwd'],$options['eat_db'],$options['eat_host']);
 	
 	//Get column information
-    $cols = $eat_db->get_results("show columns from ".$table2Edit);
+    $cols =  $eat_db->get_results("show columns from ".$table2Edit);
 		
 	//build where
 	$where = "";
@@ -407,7 +417,7 @@ function ReturnRecords()
 		$sql = $eat_db->prepare("select * from ".$table2Edit." LIMIT ".$offSet.", ".$eat_cols."",null);
 	}
 
-	$records = $eat_db->get_results($sql,'ARRAY_A');
+	$records = stripslashes_deep($eat_db->get_results($sql,'ARRAY_A'));
 	
 	//lets work out how many columns we're going to display (max from options)
 	$numCols = $eat_db->num_rows;
@@ -468,7 +478,7 @@ function ReturnRecords()
 					else
 					{
 						?>
-						<td id="<?php echo $col->Field; ?>"><input type="text"  value="<?php echo sanitize_text_field($row[$col->Field]); ?>" /></td>
+                        <td id="<?php echo $col->Field; ?>"><input type="text"  value="<?php echo esc_html($row[$col->Field]); ?>" /></td>
 						<?php
 					}
 				}
@@ -520,6 +530,10 @@ function ReturnRecords()
 	{
 		_e('No Results Found','EditAnyTable');
 	}
+    if(current_user_can('administrator')  && $options['eat_debug']=='ON')
+    {
+        echo '<br /><strong>DEBUG MODE ON</strong><br />'.$eat_db->last_query;
+    }
 	
 	die();
 }
