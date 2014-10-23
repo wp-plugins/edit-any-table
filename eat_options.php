@@ -82,8 +82,7 @@ function eat_admin_init()
 
 function display_eat_debug()
 {
-    if ( get_option( 'eat_debug' ) === false ) // Nothing yet saved
-        update_option( 'eat_debug', 'OFF' );
+
     $options = get_option('eat_options');
     echo "<input id='eat_debug' name='eat_options[eat_debug]'  type='radio' value='ON' " . ($options['eat_debug'] == 'ON' ? 'checked' : '') . "/>ON
 		  <input id='eat_debug' name='eat_options[eat_debug]'  type='radio' value='OFF' " . ($options['eat_debug'] == 'OFF' ? 'checked' : '') . "/>OFF";
@@ -121,8 +120,7 @@ function display_eat_friendly()
 
 function display_eat_cols()
 {
-    if ( get_option( 'eat_cols' ) === false ) // Nothing yet saved
-        update_option( 'eat_cols', '5' );
+
     $options = get_option('eat_options');
     echo "<input id='eat_cols' name='eat_options[eat_cols]'  type='radio' value='1' " . ($options['eat_cols'] == '1' ? 'checked' : '') . "/>1
 		  <input id='eat_cols' name='eat_options[eat_cols]'  type='radio' value='2' " . ($options['eat_cols'] == '2' ? 'checked' : '') . "/>2
