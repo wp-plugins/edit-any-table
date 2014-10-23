@@ -1,0 +1,254 @@
+# Copyright (C) 2014 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version:  \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/edit-any-table\n"
+"POT-Creation-Date: 2014-10-23 13:57:52+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Nigel Bachmann <editanytable@redeyedmonster.co.uk>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: EditAnyTable.php:54
+msgid "Unable to connect to database, check your settings"
+msgstr ""
+
+#: EditAnyTable.php:66
+msgid "Instructions"
+msgstr ""
+
+#: EditAnyTable.php:69
+msgid "Open selected table"
+msgstr ""
+
+#: EditAnyTable.php:69
+msgid "Open"
+msgstr ""
+
+#: EditAnyTable.php:71
+msgid "Choose Table to Edit"
+msgstr ""
+
+#: EditAnyTable.php:93
+msgid "on database"
+msgstr ""
+
+#: EditAnyTable.php:121
+msgid ""
+"Cannot update this record because there are no primary keys in the table"
+msgstr ""
+
+#: EditAnyTable.php:154
+msgid "Record Updated"
+msgstr ""
+
+#: EditAnyTable.php:158
+msgid "Unable to update record"
+msgstr ""
+
+#: EditAnyTable.php:158
+msgid ""
+"This is usually because nothing has changed or the record no longer exists."
+msgstr ""
+
+#: EditAnyTable.php:188
+msgid ""
+"Cannot delete this record because there are no primary keys in the table"
+msgstr ""
+
+#: EditAnyTable.php:245
+msgid "Record Deleted"
+msgstr ""
+
+#: EditAnyTable.php:249
+msgid "Unable to delete record"
+msgstr ""
+
+#: EditAnyTable.php:305
+msgid "New Record Created"
+msgstr ""
+
+#: EditAnyTable.php:309
+msgid "Unable to create new record"
+msgstr ""
+
+#: EditAnyTable.php:430
+msgid "Previous"
+msgstr ""
+
+#: EditAnyTable.php:436
+msgid "Next"
+msgstr ""
+
+#: EditAnyTable.php:446 EditAnyTable.php:580
+msgid "Column"
+msgstr ""
+
+#: EditAnyTable.php:505
+msgid "Save"
+msgstr ""
+
+#: EditAnyTable.php:513
+msgid "Delete"
+msgstr ""
+
+#: EditAnyTable.php:531
+msgid "No Results Found"
+msgstr ""
+
+#: EditAnyTable.php:560
+msgid "Find"
+msgstr ""
+
+#: EditAnyTable.php:562
+msgid "Fuzzy"
+msgstr ""
+
+#: EditAnyTable.php:569
+msgid "Add a new record with the values entered"
+msgstr ""
+
+#: EditAnyTable.php:569
+msgid "Add"
+msgstr ""
+
+#: EditAnyTable.php:574
+msgid "Clear all the values"
+msgstr ""
+
+#: EditAnyTable.php:574
+msgid "Reset"
+msgstr ""
+
+#: EditAnyTable.php:581
+msgid "Value"
+msgstr ""
+
+#: eat_options.php:34
+msgid "Unable to connect to your external database"
+msgstr ""
+
+#: eat_options.php:34
+msgid "Check your Database Settings"
+msgstr ""
+
+#: eat_options.php:43
+msgid "No one will see this in the Dashboard"
+msgstr ""
+
+#: eat_options.php:43
+msgid "Check the Admin Settings"
+msgstr ""
+
+#: eat_options.php:62
+msgid "Debug Mode"
+msgstr ""
+
+#: eat_options.php:63
+msgid "Debug"
+msgstr ""
+
+#: eat_options.php:64
+msgid "Database Settings"
+msgstr ""
+
+#: eat_options.php:65
+msgid "Host"
+msgstr ""
+
+#: eat_options.php:66
+msgid "Database"
+msgstr ""
+
+#: eat_options.php:67
+msgid "Username"
+msgstr ""
+
+#: eat_options.php:68
+msgid "Password"
+msgstr ""
+
+#: eat_options.php:69
+msgid "Admin Settings"
+msgstr ""
+
+#: eat_options.php:70
+msgid "Admin Access"
+msgstr ""
+
+#: eat_options.php:71
+msgid "Editor Access"
+msgstr ""
+
+#: eat_options.php:72
+msgid "Allow Editor Add"
+msgstr ""
+
+#: eat_options.php:73
+msgid "Allow Editor Edit"
+msgstr ""
+
+#: eat_options.php:74
+msgid "Allow Editor Delete"
+msgstr ""
+
+#: eat_options.php:75
+msgid "Display Settings"
+msgstr ""
+
+#: eat_options.php:76
+msgid "Default number of search results to display at a time"
+msgstr ""
+
+#: eat_options.php:77
+msgid ""
+"Enter a friendly name to be displayed for the database (leave blank to "
+"display actual name)"
+msgstr ""
+
+#: eat_options.php:78
+msgid "Display Edit Any Table as a Dashboard Widget or in its own Admin Page"
+msgstr ""
+
+#: eat_options.php:79
+msgid "Tables"
+msgstr ""
+
+#: eat_options.php:80
+msgid "Select the tables to display in the Dashboard"
+msgstr ""
+
+#: eat_options.php:112
+msgid "Widget"
+msgstr ""
+
+#: eat_options.php:113
+msgid "Separate Admin Page"
+msgstr ""
+
+#: eat_options.php:205
+msgid "Enter the values to enable connection to your chosen database"
+msgstr ""
+
+#: eat_options.php:212
+msgid "Who has access to the Edit Any Table Dashboard Widget?"
+msgstr ""
+
+#: eat_options.php:219
+msgid ""
+"Edit any Table displays best in a one column layout. If you are using more "
+"than one column you may want to change how some elements are displayed"
+msgstr ""
+
+#: eat_options.php:226
+msgid ""
+"Once you have saved your database settings correctly you should see a list "
+"of tables to select for display"
+msgstr ""
+
+#: eat_options.php:233
+msgid "Switch on Debug Mode to view the SQL statements sent to your database"
+msgstr ""
